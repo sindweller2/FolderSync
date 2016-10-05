@@ -1,5 +1,5 @@
 # FolderSync
-Java Swing Application to syncronize between folder based on existing file and date modified.
+Java Swing Application to syncronize between directory (and sub-directory) based on existing file and date modified.
 
 Created on 31 Oct 2011
 
