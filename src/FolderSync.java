@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-/*
+ /*
  * FolderSync.java
  *
  * Created on Oct 31, 2011, 3:55:53 PM
@@ -13,8 +13,11 @@ package FolderSync;
 public class FolderSync extends javax.swing.JFrame
 {
 
-    public Class Class =  new Class();
-    /** Creates new form FolderSync */
+    public Class Class = new Class();
+
+    /**
+     * Creates new form FolderSync
+     */
     public FolderSync()
     {
         initComponents();
@@ -133,41 +136,40 @@ public class FolderSync extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void formWindowOpened(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowOpened
     {//GEN-HEADEREND:event_formWindowOpened
         try
         {
             Class.ReadConfig(jSourceDirectoryTextField, jDestinationDirectoryTextField);
-            this.setLocation((java.awt.Toolkit.getDefaultToolkit().getScreenSize().width - this.getWidth ())/2,(java.awt.Toolkit.getDefaultToolkit().getScreenSize().height - this.getHeight ())/2);
+            this.setLocation((java.awt.Toolkit.getDefaultToolkit().getScreenSize().width - this.getWidth()) / 2, (java.awt.Toolkit.getDefaultToolkit().getScreenSize().height - this.getHeight()) / 2);
         }
         catch (Exception e)
         {
-            javax.swing.JOptionPane.showMessageDialog(null,e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void jSourceDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jSourceDirectoryButtonActionPerformed
     {//GEN-HEADEREND:event_jSourceDirectoryButtonActionPerformed
-       try
+        try
         {
             Class.SetFolderLocation(jFileChooser, jSourceDirectoryTextField);
         }
         catch (Exception ex)
         {
-            javax.swing.JOptionPane.showMessageDialog(null,ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jSourceDirectoryButtonActionPerformed
 
     private void jDestinationDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jDestinationDirectoryButtonActionPerformed
     {//GEN-HEADEREND:event_jDestinationDirectoryButtonActionPerformed
-       try
+        try
         {
             Class.SetFolderLocation(jFileChooser, jDestinationDirectoryTextField);
         }
         catch (Exception ex)
         {
-            javax.swing.JOptionPane.showMessageDialog(null,ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jDestinationDirectoryButtonActionPerformed
 
@@ -179,7 +181,7 @@ public class FolderSync extends javax.swing.JFrame
         }
         catch (Exception ex)
         {
-            javax.swing.JOptionPane.showMessageDialog(null,ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jSyncButtonActionPerformed
 
@@ -191,7 +193,7 @@ public class FolderSync extends javax.swing.JFrame
         }
         catch (Exception ex)
         {
-             javax.swing.JOptionPane.showMessageDialog(null,ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_formWindowClosing
 

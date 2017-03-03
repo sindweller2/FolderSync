@@ -7,12 +7,13 @@ package FolderSync;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-
+import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
 public class Class
 {
+
     public void ReadConfig(javax.swing.JTextField jSourceDirectoryTextField, javax.swing.JTextField jDestinationDirectoryTextField) throws IOException
     {
         try
@@ -95,7 +96,12 @@ public class Class
             String DestinationFileCanonical;
             String DestinationFileNames;
             Long DestinationFileDates;
-            SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+            java.io.Writer Writer;
+            java.io.File File = new java.io.File("report.log");
+
+            Writer = new java.io.BufferedWriter(new java.io.FileWriter(File));
 
             java.io.File SourceFolder = new java.io.File(jSourceDirectoryTextField.getText());
             java.io.File DestinationFolder = new java.io.File(jDestinationDirectoryTextField.getText());
@@ -122,14 +128,23 @@ public class Class
                         if (SourceFileDates > DestinationFileDates)
                         {
                             this.CopyFile(SourceFileCanonical, DestinationFileCanonical);
+                            Writer.write(SimpleDateFormat.format(new Date()) + " - " + SourceFileCanonical + " to " + DestinationFileCanonical + "\n");
                         }
                     }
                     else
                     {
                         this.CopyFile(SourceFileCanonical, DestinationFileCanonical);
+                        Writer.write(SimpleDateFormat.format(new Date()) + " - " + SourceFileCanonical + " to " + DestinationFileCanonical + "\n");
                     }
                 }
             }
+
+            if (!File.exists())
+            {
+                File.createNewFile();
+            }
+
+            Writer.close();
 
             javax.swing.JOptionPane.showMessageDialog(null, "Folder Synchronized!");
         }
