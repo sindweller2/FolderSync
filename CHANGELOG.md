@@ -13,4 +13,4 @@
 
 ## 2011-10-31
 ### Added
-- first release
+- initial release
