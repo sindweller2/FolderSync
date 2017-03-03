@@ -8,7 +8,7 @@
 
 ## 2016-10-04
 ### Added
-- new validation based on file modified date and file exist
+- new validation based on file modified date and existing file
 
 
 ## 2011-10-31
