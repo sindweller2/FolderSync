@@ -1,3 +1,8 @@
+## 2017-05-01
+### Added
+- One Way and Two Way Syncronization
+- Date Modified filtering in Syncronization
+
 ## 2016-12-29
 ### Added
 - log file content of synced file list
