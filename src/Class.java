@@ -86,74 +86,6 @@ public class Class
         }
     }
 
-    public void Sync(javax.swing.JTextField jSourceDirectoryTextField, javax.swing.JTextField jDestinationDirectoryTextField) throws Exception
-    {
-        try
-        {
-            String SourceFileCanonical;
-            String SourceFileNames;
-            Long SourceFileDates;
-            String DestinationFileCanonical;
-            String DestinationFileNames;
-            Long DestinationFileDates;
-            SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-            java.io.Writer Writer;
-            java.io.File File = new java.io.File("report.log");
-
-            Writer = new java.io.BufferedWriter(new java.io.FileWriter(File));
-
-            java.io.File SourceFolder = new java.io.File(jSourceDirectoryTextField.getText());
-            java.io.File DestinationFolder = new java.io.File(jDestinationDirectoryTextField.getText());
-            java.util.List<java.io.File> listOfSourceFiles = (java.util.List<java.io.File>) FileUtils.listFiles(SourceFolder, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
-
-            for (int i = 0; i < listOfSourceFiles.size(); i++)
-            {
-                if (listOfSourceFiles.get(i).isFile())
-                {
-                    SourceFileCanonical = listOfSourceFiles.get(i).getCanonicalPath();
-
-                    SourceFileNames = listOfSourceFiles.get(i).getName();
-                    SourceFileDates = listOfSourceFiles.get(i).lastModified();
-
-                    DestinationFileCanonical = SourceFileCanonical.replace(jSourceDirectoryTextField.getText(), jDestinationDirectoryTextField.getText());
-
-                    java.io.File DestinationFile = new java.io.File(DestinationFileCanonical);
-
-                    DestinationFileNames = DestinationFile.getName();
-                    DestinationFileDates = DestinationFile.lastModified();
-
-                    if (DestinationFile.exists())
-                    {
-                        if (SourceFileDates > DestinationFileDates)
-                        {
-                            this.CopyFile(SourceFileCanonical, DestinationFileCanonical);
-                            Writer.write(SimpleDateFormat.format(new Date()) + " - " + SourceFileCanonical + " to " + DestinationFileCanonical + "\n");
-                        }
-                    }
-                    else
-                    {
-                        this.CopyFile(SourceFileCanonical, DestinationFileCanonical);
-                        Writer.write(SimpleDateFormat.format(new Date()) + " - " + SourceFileCanonical + " to " + DestinationFileCanonical + "\n");
-                    }
-                }
-            }
-
-            if (!File.exists())
-            {
-                File.createNewFile();
-            }
-
-            Writer.close();
-
-            javax.swing.JOptionPane.showMessageDialog(null, "Folder Synchronized!");
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-    }
-
     public void CopyFile(String Source, String Destination) throws Exception
     {
         try
@@ -179,6 +111,120 @@ public class Class
             }
             InputStream.close();
             OutputStream.close();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public void DeleteFile(String FilePath) throws Exception
+    {
+        try
+        {
+            java.io.File File = new java.io.File(FilePath);
+
+            if (File.exists())
+            {
+                File.delete();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public void Sync(javax.swing.JTextField jSourceDirectoryTextField, javax.swing.JTextField jDestinationDirectoryTextField, String SyncType, Boolean DateModified) throws Exception
+    {
+        try
+        {
+            String SourceFileCanonical;
+            String SourceFileNames;
+            Long SourceFileDates;
+            String DestinationFileCanonical;
+            String DestinationFileNames;
+            Long DestinationFileDates;
+            SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+            java.io.Writer Writer;
+            java.io.File File = new java.io.File("report.log");
+
+            Writer = new java.io.BufferedWriter(new java.io.FileWriter(File,true));
+            
+            Writer.write(SimpleDateFormat.format(new Date()) + " - Sync Start" + "\n");
+
+            java.io.File SourceFolder = new java.io.File(jSourceDirectoryTextField.getText());
+            java.io.File DestinationFolder = new java.io.File(jDestinationDirectoryTextField.getText());
+            java.util.List<java.io.File> listOfSourceFiles = (java.util.List<java.io.File>) FileUtils.listFiles(SourceFolder, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+
+            for (int i = 0; i < listOfSourceFiles.size(); i++)
+            {
+                if (listOfSourceFiles.get(i).isFile())
+                {
+                    SourceFileCanonical = listOfSourceFiles.get(i).getCanonicalPath();
+
+                    SourceFileNames = listOfSourceFiles.get(i).getName();
+                    SourceFileDates = listOfSourceFiles.get(i).lastModified();
+
+                    DestinationFileCanonical = SourceFileCanonical.replace(jSourceDirectoryTextField.getText(), jDestinationDirectoryTextField.getText());
+
+                    java.io.File DestinationFile = new java.io.File(DestinationFileCanonical);
+
+                    DestinationFileNames = DestinationFile.getName();
+                    DestinationFileDates = DestinationFile.lastModified();
+
+                    if (SyncType == "1")
+                    {
+                        if (DestinationFile.exists())
+                        {
+                            if (DateModified = true)
+                            {
+                                if (SourceFileDates > DestinationFileDates)
+                                {
+                                    this.CopyFile(SourceFileCanonical, DestinationFileCanonical);
+                                    Writer.write(SimpleDateFormat.format(new Date()) + " - Copy - " + SourceFileCanonical + " to " + DestinationFileCanonical + "\n");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this.CopyFile(SourceFileCanonical, DestinationFileCanonical);
+                            Writer.write(SimpleDateFormat.format(new Date()) + " - Copy - " + SourceFileCanonical + " to " + DestinationFileCanonical + "\n");
+                        }
+                    }
+                    else if (SyncType == "2")
+                    {
+                        if (DestinationFile.exists())
+                        {
+                            if (DateModified = true)
+                            {
+                                if (SourceFileDates > DestinationFileDates)
+                                {
+                                    this.CopyFile(SourceFileCanonical, DestinationFileCanonical);
+                                    Writer.write(SimpleDateFormat.format(new Date()) + " - Copy - " + SourceFileCanonical + " to " + DestinationFileCanonical + "\n");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this.DeleteFile(SourceFileCanonical);
+                            Writer.write(SimpleDateFormat.format(new Date()) + " - Delete - " + SourceFileCanonical + "\n");
+                        }
+                    }
+                }
+            }
+            
+            Writer.write(SimpleDateFormat.format(new Date()) + " - Sync End" + "\n" + "===========================================================================" + "\n");
+
+            if (!File.exists())
+            {
+                File.createNewFile();
+            }
+
+            Writer.close();
+
+            
         }
         catch (Exception ex)
         {
